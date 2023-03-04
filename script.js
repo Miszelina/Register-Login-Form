@@ -12,6 +12,21 @@ const register = document.querySelector('.register-form');
 const p = document.querySelector('.welcome-paragraph');
 const welcomeRegister = document.querySelector('.welcome-register');
 const welcomeLogin = document.querySelector('.welcome-Login');
+const submitted = document.querySelector('.submitted');
+
+const modeBtn = document.getElementById('mode');
+
+modeBtn.onchange = (e) => {
+	if (modeBtn.checked === true) {
+	  document.documentElement.classList.remove("light")
+	  document.documentElement.classList.add("dark")
+	  window.localStorage.setItem('mode', 'dark');
+	} else {
+	  document.documentElement.classList.remove("dark")
+	  document.documentElement.classList.add("light")
+	  window.localStorage.setItem('mode', 'light');
+	}
+  }
 
 const showError = (input, msg) => {
 	const formBox = input.parentElement;
@@ -30,6 +45,7 @@ const checkForm = (input) => {
 	input.forEach((el) => {
 		if (el.value === '') {
 			showError(el, el.placeholder);
+			submitted.style.visibility = 'hidden';
 		} else {
 			clearError(el);
 		}
@@ -73,7 +89,7 @@ const checkErrors = () => {
 		}
 	});
 	if (errorCount === 0) {
-		popup.classList.add('show-popup');
+		submitted.style.visibility = 'visible';
 	}
 };
 
